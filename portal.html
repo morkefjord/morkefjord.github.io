@@ -452,36 +452,36 @@
   <!-- SETUP SCREEN (no profile yet) -->
   <div id="setupScreen" class="setup-screen" style="display:none">
     <h2>
-      <span class="en">Create Your Profile</span>
+      <span class="en">Create Your Profile</span><span class="it">Crea il tuo profilo</span>
       <span class="no">Opprett din profil</span>
     </h2>
     <p>
-      <span class="en">Register as an investigator to access the case management system.</span>
+      <span class="en">Register as an investigator to access the case management system.</span><span class="it">Registrati come investigatore per accedere al sistema di gestione dei casi.</span>
       <span class="no">Registrer deg som etterforsker for å få tilgang til sakshåndteringssystemet.</span>
     </p>
     <div class="form-group">
       <label>
-        <span class="en">Detective Name</span>
+        <span class="en">Detective Name</span><span class="it">Nome detective</span>
         <span class="no">Detektivnavn</span>
       </label>
       <input type="text" id="setupName" class="form-input" placeholder="Alex Hagen">
     </div>
     <div class="form-group">
       <label>
-        <span class="en">Rank / Title</span>
+        <span class="en">Rank / Title</span><span class="it">Grado / Titolo</span>
         <span class="no">Rang / Tittel</span>
       </label>
       <input type="text" id="setupRank" class="form-input" placeholder="Detective, Grønnvik Police">
     </div>
     <div class="form-group">
       <label>
-        <span class="en">Personal Notes (optional)</span>
+        <span class="en">Personal Notes (optional)</span><span class="it">Note personali (facoltativo)</span>
         <span class="no">Personlige notater (valgfritt)</span>
       </label>
       <textarea id="setupBio" class="form-input" placeholder="Background, motivation, approach to the case..."></textarea>
     </div>
     <button class="btn-portal" onclick="createProfile()">
-      <span class="en">Activate Profile</span>
+      <span class="en">Activate Profile</span><span class="it">Attiva profilo</span>
       <span class="no">Aktiver profil</span>
     </button>
   </div>
@@ -490,15 +490,15 @@
   <div id="mainPortal" style="display:none">
     <div class="portal-tabs">
       <button class="portal-tab active" data-panel="profile">
-        <span class="en">Profile</span>
+        <span class="en">Profile</span><span class="it">Profilo</span>
         <span class="no">Profil</span>
       </button>
       <button class="portal-tab" data-panel="notes">
-        <span class="en">Case Notes</span>
+        <span class="en">Case Notes</span><span class="it">Note sul caso</span>
         <span class="no">Saksnotater</span>
       </button>
       <button class="portal-tab" data-panel="evidence">
-        <span class="en">Evidence Board</span>
+        <span class="en">Evidence Board</span><span class="it">Tavola delle prove</span>
         <span class="no">Bevistavle</span>
       </button>
     </div>
@@ -514,7 +514,7 @@
           <div class="profile-bio" id="profileBio"></div>
           <div class="profile-actions">
             <button class="btn-portal-outline btn-sm" onclick="editProfile()">
-              <span class="en">Edit Profile</span>
+              <span class="en">Edit Profile</span><span class="it">Modifica profilo</span>
               <span class="no">Rediger profil</span>
             </button>
           </div>
@@ -523,27 +523,27 @@
         <!-- Edit form (hidden) -->
         <div id="editProfileForm" class="note-form">
           <h3>
-            <span class="en">Edit Profile</span>
+            <span class="en">Edit Profile</span><span class="it">Modifica profilo</span>
             <span class="no">Rediger profil</span>
           </h3>
           <div class="form-group">
-            <label><span class="en">Detective Name</span><span class="no">Detektivnavn</span></label>
+            <label><span class="en">Detective Name</span><span class="no">Detektivnavn</span><span class="it">Nome detective</span></label>
             <input type="text" id="editName" class="form-input">
           </div>
           <div class="form-group">
-            <label><span class="en">Rank / Title</span><span class="no">Rang / Tittel</span></label>
+            <label><span class="en">Rank / Title</span><span class="no">Rang / Tittel</span><span class="it">Grado / Titolo</span></label>
             <input type="text" id="editRank" class="form-input">
           </div>
           <div class="form-group">
-            <label><span class="en">Personal Notes</span><span class="no">Personlige notater</span></label>
+            <label><span class="en">Personal Notes</span><span class="no">Personlige notater</span><span class="it">Note personali</span></label>
             <textarea id="editBio" class="form-input"></textarea>
           </div>
           <div class="form-actions">
             <button class="btn-portal btn-sm" onclick="saveProfile()">
-              <span class="en">Save</span><span class="no">Lagre</span>
+              <span class="en">Save</span><span class="no">Lagre</span><span class="it">Salva</span>
             </button>
             <button class="btn-portal-outline btn-sm" onclick="cancelEdit()">
-              <span class="en">Cancel</span><span class="no">Avbryt</span>
+              <span class="en">Cancel</span><span class="no">Avbryt</span><span class="it">Annulla</span>
             </button>
           </div>
         </div>
@@ -551,26 +551,26 @@
         <!-- Data management -->
         <div class="data-section">
           <h3>
-            <span class="en">Case File Management</span>
+            <span class="en">Case File Management</span><span class="it">Gestione fascicolo</span>
             <span class="no">Saksfilbehandling</span>
           </h3>
           <div class="data-actions">
             <button class="btn-portal-outline btn-sm" onclick="exportData()">
-              <span class="en">Export Case File</span>
+              <span class="en">Export Case File</span><span class="it">Esporta fascicolo</span>
               <span class="no">Eksporter saksfil</span>
             </button>
             <label class="btn-portal-outline btn-sm" style="cursor:pointer">
-              <span class="en">Import Case File</span>
+              <span class="en">Import Case File</span><span class="it">Importa fascicolo</span>
               <span class="no">Importer saksfil</span>
               <input type="file" accept=".json" onchange="importData(event)" style="display:none">
             </label>
             <button class="btn-portal-outline btn-sm btn-danger" onclick="resetData()">
-              <span class="en">Reset All Data</span>
+              <span class="en">Reset All Data</span><span class="it">Cancella tutti i dati</span>
               <span class="no">Slett alle data</span>
             </button>
           </div>
           <p class="data-info">
-            <span class="en">All data is stored locally in your browser. Use Export to save a backup you can import on any device.</span>
+            <span class="en">All data is stored locally in your browser. Use Export to save a backup you can import on any device.</span><span class="it">Tutti i dati sono salvati localmente nel tuo browser. Usa Esporta per salvare un backup importabile su qualsiasi dispositivo.</span>
             <span class="no">Alle data lagres lokalt i nettleseren din. Bruk Eksporter for å lagre en sikkerhetskopi du kan importere på hvilken som helst enhet.</span>
           </p>
         </div>
@@ -580,27 +580,27 @@
       <div class="portal-panel" id="panel-notes">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
           <h2 style="color:var(--terminal-text);font-size:1.3rem;margin:0">
-            <span class="en">Case Notes</span>
+            <span class="en">Case Notes</span><span class="it">Note sul caso</span>
             <span class="no">Saksnotater</span>
           </h2>
           <button class="btn-portal btn-sm" onclick="toggleNoteForm()">
-            <span class="en">+ New Note</span>
+            <span class="en">+ New Note</span><span class="it">+ Nuova nota</span>
             <span class="no">+ Ny notat</span>
           </button>
         </div>
 
         <div id="noteForm" class="note-form">
           <h3>
-            <span class="en">New Note</span>
+            <span class="en">New Note</span><span class="it">Nuova nota</span>
             <span class="no">Nytt notat</span>
           </h3>
           <div class="form-row">
             <div class="form-group">
-              <label><span class="en">Title</span><span class="no">Tittel</span></label>
+              <label><span class="en">Title</span><span class="no">Tittel</span><span class="it">Titolo</span></label>
               <input type="text" id="noteTitle" class="form-input" placeholder="Observation, lead, question...">
             </div>
             <div class="form-group">
-              <label><span class="en">Scene / Act</span><span class="no">Scene / Akt</span></label>
+              <label><span class="en">Scene / Act</span><span class="no">Scene / Akt</span><span class="it">Scena / Atto</span></label>
               <select id="noteScene" class="form-input">
                 <option value="">—</option>
                 <option value="Act I — Scene 1">Act I — Scene 1: Alex's Office</option>
@@ -615,15 +615,15 @@
             </div>
           </div>
           <div class="form-group">
-            <label><span class="en">Content</span><span class="no">Innhold</span></label>
+            <label><span class="en">Content</span><span class="no">Innhold</span><span class="it">Contenuto</span></label>
             <textarea id="noteContent" class="form-input" placeholder="What did you notice? What doesn't add up?"></textarea>
           </div>
           <div class="form-actions">
             <button class="btn-portal btn-sm" onclick="saveNote()">
-              <span class="en">Save Note</span><span class="no">Lagre notat</span>
+              <span class="en">Save Note</span><span class="no">Lagre notat</span><span class="it">Salva nota</span>
             </button>
             <button class="btn-portal-outline btn-sm" onclick="toggleNoteForm()">
-              <span class="en">Cancel</span><span class="no">Avbryt</span>
+              <span class="en">Cancel</span><span class="no">Avbryt</span><span class="it">Annulla</span>
             </button>
           </div>
         </div>
@@ -631,11 +631,11 @@
         <div id="notesList" class="notes-list"></div>
         <div id="notesEmpty" class="empty-state" style="display:none">
           <h3>
-            <span class="en">No notes yet</span>
+            <span class="en">No notes yet</span><span class="it">Nessuna nota ancora</span>
             <span class="no">Ingen notater ennå</span>
           </h3>
           <p>
-            <span class="en">Start documenting your investigation. Every detail could matter.</span>
+            <span class="en">Start documenting your investigation. Every detail could matter.</span><span class="it">Inizia a documentare la tua indagine. Ogni dettaglio potrebbe essere importante.</span>
             <span class="no">Begynn å dokumentere etterforskningen din. Hver detalj kan ha betydning.</span>
           </p>
         </div>
@@ -645,27 +645,27 @@
       <div class="portal-panel" id="panel-evidence">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
           <h2 style="color:var(--terminal-text);font-size:1.3rem;margin:0">
-            <span class="en">Evidence Board</span>
+            <span class="en">Evidence Board</span><span class="it">Tavola delle prove</span>
             <span class="no">Bevistavle</span>
           </h2>
           <button class="btn-portal btn-sm" onclick="toggleEvidenceForm()">
-            <span class="en">+ Log Evidence</span>
+            <span class="en">+ Log Evidence</span><span class="it">+ Registra prova</span>
             <span class="no">+ Registrer bevis</span>
           </button>
         </div>
 
         <div id="evidenceForm" class="note-form">
           <h3>
-            <span class="en">Log Evidence</span>
+            <span class="en">Log Evidence</span><span class="it">Registra prova</span>
             <span class="no">Registrer bevis</span>
           </h3>
           <div class="form-row">
             <div class="form-group">
-              <label><span class="en">Item Name</span><span class="no">Gjenstandsnavn</span></label>
+              <label><span class="en">Item Name</span><span class="no">Gjenstandsnavn</span><span class="it">Nome elemento</span></label>
               <input type="text" id="evidenceName" class="form-input" placeholder="Deformed maps, Voss case file...">
             </div>
             <div class="form-group">
-              <label><span class="en">Type</span><span class="no">Type</span></label>
+              <label><span class="en">Type</span><span class="no">Type</span><span class="it">Tipo</span></label>
               <select id="evidenceType" class="form-input">
                 <option value="Document">Document</option>
                 <option value="Physical">Physical Evidence</option>
@@ -677,19 +677,19 @@
             </div>
           </div>
           <div class="form-group">
-            <label><span class="en">Description / Significance</span><span class="no">Beskrivelse / Betydning</span></label>
+            <label><span class="en">Description / Significance</span><span class="no">Beskrivelse / Betydning</span><span class="it">Descrizione / Significato</span></label>
             <textarea id="evidenceDesc" class="form-input" placeholder="What is this? Why does it matter?"></textarea>
           </div>
           <div class="form-group">
-            <label><span class="en">Linked to (scene, person, event)</span><span class="no">Knyttet til (scene, person, hendelse)</span></label>
+            <label><span class="en">Linked to (scene, person, event)</span><span class="no">Knyttet til (scene, person, hendelse)</span><span class="it">Collegato a (scena, persona, evento)</span></label>
             <input type="text" id="evidenceLinked" class="form-input" placeholder="Emma, Act I Scene 3, AION...">
           </div>
           <div class="form-actions">
             <button class="btn-portal btn-sm" onclick="saveEvidence()">
-              <span class="en">Log Entry</span><span class="no">Registrer</span>
+              <span class="en">Log Entry</span><span class="no">Registrer</span><span class="it">Registra</span>
             </button>
             <button class="btn-portal-outline btn-sm" onclick="toggleEvidenceForm()">
-              <span class="en">Cancel</span><span class="no">Avbryt</span>
+              <span class="en">Cancel</span><span class="no">Avbryt</span><span class="it">Annulla</span>
             </button>
           </div>
         </div>
@@ -697,11 +697,11 @@
         <div id="evidenceGrid" class="evidence-grid"></div>
         <div id="evidenceEmpty" class="empty-state" style="display:none">
           <h3>
-            <span class="en">No evidence logged</span>
+            <span class="en">No evidence logged</span><span class="it">Nessuna prova registrata</span>
             <span class="no">Ingen bevis registrert</span>
           </h3>
           <p>
-            <span class="en">Track documents, objects, testimonies, and connections as you uncover them.</span>
+            <span class="en">Track documents, objects, testimonies, and connections as you uncover them.</span><span class="it">Traccia documenti, oggetti, testimonianze e collegamenti man mano che li scopri.</span>
             <span class="no">Spor dokumenter, gjenstander, vitnemål og sammenhenger etter hvert som du avdekker dem.</span>
           </p>
         </div>
