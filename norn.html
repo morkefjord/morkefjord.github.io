@@ -8,8 +8,10 @@
   .stat-label { font-size: 0.8rem; color: var(--slate-light); margin-top: 0.5rem; line-height: 1.3; }
   .section-alt .stat-card { background: var(--white); }
   .person-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-  .person-card { padding: 1.5rem; border: 1px solid var(--border); border-radius: 6px; background: var(--white); }
+  .person-card { padding: 0; border: 1px solid var(--border); border-radius: 6px; background: var(--white); overflow: hidden; }
   .person-card h3 { font-family: var(--font-body); font-weight: 500; font-size: 1rem; color: var(--fjord); margin-bottom: 0.15rem; }
+  .person-img { width: 100%; height: 220px; object-fit: cover; object-position: center top; }
+  .person-body { padding: 1.5rem; }
   .person-role { font-size: 0.82rem; color: var(--teal); margin-bottom: 0.75rem; }
   .person-card p { font-size: 0.9rem; color: var(--slate); line-height: 1.6; }
   .person-memorial { border-left: 3px solid var(--teal); }
@@ -124,19 +126,28 @@
     <h2 class="fade-in"><span class="en">The People Behind NORN</span><span class="no">Menneskene bak NORN</span><span class="it">Le persone dietro NORN</span></h2>
     <div class="person-grid fade-in">
       <div class="person-card person-memorial">
+        <img src="images/emma_voss.png" alt="Dr. Emma Voss" class="person-img">
+        <div class="person-body">
         <h3>Dr. Emma Voss</h3>
         <div class="person-role"><span class="en">Neuroscientist, Co-founder of NørdTech, Creator of NORN — 1991–2023</span><span class="no">Nevroviter, medgründer av NørdTech, skaper av NORN — 1991–2023</span><span class="it">Neuroscienziata, co-fondatrice di NørdTech, creatrice di NORN — 1991–2023</span></div>
         <p><span class="en">Emma's pioneering research in adaptive neural networks and machine consciousness laid the foundation for everything NORN has become. Her vision of an intelligence that could learn, adapt, and serve an entire community drove the project from concept to reality. Emma passed away in 2023. Her memory guides the work of the NørdTech team every day.</span><span class="no">Emmas banebrytende forskning innen adaptive nevrale nettverk og maskinbevissthet la grunnlaget for alt NORN har blitt. Hennes visjon om en intelligens som kunne lære, tilpasse seg og tjene et helt samfunn drev prosjektet fra konsept til virkelighet. Emma gikk bort i 2023. Hennes minne veileder arbeidet til NørdTech-teamet hver dag.</span><span class="it">La ricerca pionieristica di Emma sulle reti neurali adattive e la coscienza artificiale ha posto le basi per tutto ciò che NORN è diventato. La sua visione di un'intelligenza capace di imparare, adattarsi e servire un'intera comunità ha portato il progetto dal concetto alla realtà. Emma è mancata nel 2023. La sua memoria guida il lavoro del team NørdTech ogni giorno.</span></p>
+        </div>
       </div>
       <div class="person-card">
+        <img src="images/isak_ravn.png" alt="Dr. Isak Ravn" class="person-img">
+        <div class="person-body">
         <h3>Dr. Isak Ravn</h3>
         <div class="person-role"><span class="en">CEO &amp; Co-founder, NørdTech</span><span class="no">Administrerende direktør og medgründer, NørdTech</span><span class="it">CEO e co-fondatore, NørdTech</span></div>
         <p><span class="en">Under Isak's direction, the NORN pilot project in Mørkefjord has become the international reference for integrated AI governance. His leadership guides NørdTech's expansion strategy and the ongoing evaluation programme with the European Commission.</span><span class="no">Under Isaks ledelse har NORN-pilotprosjektet på Mørkefjord blitt den internasjonale referansen for integrert AI-forvaltning. Hans lederskap styrer NørdTechs ekspansjonsstrategi og det pågående evalueringsprogrammet med Europakommisjonen.</span><span class="it">Sotto la direzione di Isak, il progetto pilota NORN a Mørkefjord è diventato il riferimento internazionale per la governance integrata tramite IA. La sua leadership guida la strategia di espansione di NørdTech e il programma di valutazione in corso con la Commissione Europea.</span></p>
+        </div>
       </div>
       <div class="person-card">
+        <img src="images/jonas_berg.png" alt="Jonas Berg" class="person-img">
+        <div class="person-body">
         <h3>Jonas Berg</h3>
         <div class="person-role"><span class="en">Senior Systems Engineer, NørdTech</span><span class="no">Senioringeniør, NørdTech</span><span class="it">Ingegnere senior di sistema, NørdTech</span></div>
         <p><span class="en">Jonas is responsible for the continuous development and maintenance of NORN's core infrastructure. A close collaborator of Dr. Voss since the earliest stages of the project, his deep understanding of the system's architecture ensures the reliability that Mørkefjord depends on.</span><span class="no">Jonas er ansvarlig for den kontinuerlige utviklingen og vedlikeholdet av NORNs kjerneinfrastruktur. En nær samarbeidspartner av Dr. Voss siden de tidligste stadiene av prosjektet, hans dype forståelse av systemets arkitektur sikrer den påliteligheten Mørkefjord er avhengig av.</span><span class="it">Jonas è responsabile dello sviluppo continuo e della manutenzione dell'infrastruttura di NORN. Stretto collaboratore della Dott.ssa Voss fin dalle prime fasi del progetto, la sua profonda conoscenza dell'architettura del sistema garantisce l'affidabilità da cui Mørkefjord dipende.</span></p>
+        </div>
       </div>
     </div>
   </div></section>
