@@ -50,8 +50,10 @@ textarea.form-input{min-height:100px;resize:vertical;line-height:1.6}
 .profile-name{font-family:var(--font-display);font-size:1.8rem;color:var(--tt);margin-bottom:.25rem}
 .profile-rank{color:var(--td);font-size:.9rem}
 .items-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
-.item-card{background:var(--ts);border:1px solid var(--tbr);border-radius:6px;padding:1.25rem;transition:border-color .2s}
+.item-card{background:var(--ts);border:1px solid var(--tbr);border-radius:6px;overflow:hidden;transition:border-color .2s;cursor:pointer}
 .item-card:hover{border-color:var(--ta)}
+.item-card-img{width:100%;height:160px;object-fit:cover}
+.item-card-body{padding:1.25rem}
 .item-card h4{font-family:var(--font-body);font-weight:500;color:var(--tt);font-size:.95rem;margin-bottom:.25rem}
 .item-type{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem;display:inline-block;padding:.1rem .5rem;border-radius:2px}
 .item-type.document{color:#5B9BD5;background:rgba(91,155,213,.1)}
@@ -63,6 +65,16 @@ textarea.form-input{min-height:100px;resize:vertical;line-height:1.6}
 .item-location{font-size:.75rem;color:var(--td);margin-bottom:.5rem}
 .item-card p{color:var(--td);font-size:.85rem;line-height:1.5}
 .item-from{font-size:.75rem;color:var(--tg);margin-bottom:.4rem;font-weight:500}
+.item-detail{background:var(--ts);border:1px solid var(--tbr);border-radius:6px;overflow:hidden;display:none}
+.item-detail.open{display:block}
+.item-detail-header{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 1.5rem;border-bottom:1px solid var(--tbr)}
+.item-detail-header h3{font-family:var(--font-body);font-weight:500;color:var(--tt);font-size:1.1rem;margin:0}
+.item-detail-back{background:none;border:none;color:var(--ta);font-family:var(--font-body);font-size:.85rem;cursor:pointer;padding:.25rem .5rem}
+.item-detail-back:hover{color:var(--tt)}
+.item-detail-img{width:100%;max-height:400px;object-fit:contain;background:var(--tb);display:block}
+.item-detail-body{padding:1.5rem}
+.item-detail-meta{display:flex;gap:1rem;align-items:center;margin-bottom:1rem;flex-wrap:wrap}
+.item-detail-content{color:var(--td);font-size:.92rem;line-height:1.8;white-space:pre-wrap;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--tbr)}
 .notes-list{display:flex;flex-direction:column;gap:1rem}
 .note-card{background:var(--ts);border:1px solid var(--tbr);border-left:3px solid var(--ta);border-radius:0 6px 6px 0;padding:1.25rem}
 .note-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
@@ -177,7 +189,8 @@ textarea.form-input{min-height:100px;resize:vertical;line-height:1.6}
 <p><span class="en">You have collected several pieces of evidence. Consider exporting your case file.</span><span class="no">Du har samlet flere bevis. Vurder å eksportere saksfilen din.</span><span class="it">Hai raccolto diverse prove. Considera di esportare il fascicolo.</span></p>
 <button class="btn-sm btn-portal-outline" onclick="exportData();document.getElementById('exportReminder').style.display='none'">Export</button>
 </div>
-<h2 style="color:var(--tt);font-size:1.3rem;margin-bottom:1.5rem"><span class="en">Collected Evidence</span><span class="no">Innsamlede bevis</span><span class="it">Prove raccolte</span></h2>
+<h2 id="evidenceTitle" style="color:var(--tt);font-size:1.3rem;margin-bottom:1.5rem"><span class="en">Collected Evidence</span><span class="no">Innsamlede bevis</span><span class="it">Prove raccolte</span></h2>
+<div id="itemDetail" class="item-detail"></div>
 <div id="itemsGrid" class="items-grid"></div>
 <div id="itemsEmpty" class="empty-state" style="display:none">
 <h3><span class="en">No evidence collected yet</span><span class="no">Ingen bevis innsamlet ennå</span><span class="it">Nessuna prova raccolta</span></h3>
@@ -273,21 +286,23 @@ textarea.form-input{min-height:100px;resize:vertical;line-height:1.6}
    ================================================================ */
 
 const ITEMS = [
-  // { id, name, type, location, desc, phase, from (optional, for messages) }
+  // { id, name, type, location, desc, phase, from (optional), image (optional), content (optional) }
   // type: Document | Physical | Testimony | Digital | Message | Location | Connection
+  // image: path to image file in images/ folder
+  // content: full text of document, viewable on click
   
   // ACT I
-  { id:"fascicolo_voss", name:"Fascicolo Caso Voss", type:"Document", location:"Ufficio di Alex", desc:"Official case file on Emma Voss. Closed as voluntary disappearance. Investigator: Kari Strand.", phase:1 },
+  { id:"fascicolo_voss", name:"Fascicolo Caso Voss", type:"Document", location:"Ufficio di Alex", desc:"Official case file on Emma Voss. Closed as voluntary disappearance. Investigator: Kari Strand.", phase:1, content:"CASO N. 2023-0315\nGrønnvik Politistasjon\n\nOggetto: Scomparsa di Emma Voss\nData apertura: 16 marzo 2023\nInvestigatrice: Kari Strand\n\nPiste investigative:\n- Carriera: insoddisfazione professionale, ambizioni oltre Mørkefjord\n- Emotiva: rottura con Jonas Berg, sei mesi prima\n- Telecamere Centro NørdTech: in manutenzione la notte della scomparsa\n- Email vaghe a colleghi nelle settimane precedenti\n\nConclusione: scomparsa volontaria.\nCaso chiuso." },
   { id:"foto_emma_bacheca", name:"Foto di Emma (bacheca)", type:"Physical", location:"Ufficio di Alex", desc:"A photograph of Emma Voss, half-hidden behind other papers on the notice board.", phase:1 },
-  { id:"rapporto_indagine", name:"Rapporto indagine originale", type:"Document", location:"Stazione di polizia", desc:"Original investigation report. Career lead, emotional lead, cameras under maintenance. Conclusion: voluntary disappearance.", phase:2 },
-  { id:"note_kari", name:"Note personali di Kari", type:"Document", location:"Stazione di polizia", desc:"Handwritten notes by Kari. Why the cameras that night? Who called the maintenance tech?", phase:2 },
+  { id:"rapporto_indagine", name:"Rapporto indagine originale", type:"Document", location:"Stazione di polizia", desc:"Original investigation report. Career lead, emotional lead, cameras under maintenance. Conclusion: voluntary disappearance.", phase:2, content:"RAPPORTO INVESTIGATIVO — CASO VOSS\nClassificazione: Riservato\n\nPista 1 — Carriera\nEmma Voss aveva espresso insoddisfazione per il ruolo limitato sull'isola. Colleghi riferiscono che cercava opportunità all'estero.\n\nPista 2 — Relazione\nLa rottura con Jonas Berg risale a sei mesi prima della scomparsa. Berg descrive Emma come 'sempre più distante'.\n\nPista 3 — Telecamere\nLe telecamere del Centro NørdTech erano in manutenzione programmata la notte del 15 marzo. Ordine firmato il giorno stesso.\n\nPista 4 — Comunicazioni\nEmail vaghe a colleghi. Nessun contenuto esplicito di voler partire.\n\nValutazione finale: scomparsa volontaria. Nessun elemento di reato." },
+  { id:"note_kari", name:"Note personali di Kari", type:"Document", location:"Stazione di polizia", desc:"Handwritten notes by Kari. Why the cameras that night? Who called the maintenance tech?", phase:2, content:"[Appunti a mano — calligrafia di Kari Strand]\n\nPerché le telecamere proprio quella notte?\nChi ha chiamato il tecnico della manutenzione?\nL'ordine è stato firmato il giorno stesso — chi lo ha autorizzato?\nEmma aveva accesso ai server quella notte?\nPerché Berg non ha denunciato subito?\n\n→ Tutto troppo pulito. Come se qualcuno avesse costruito una narrativa perfetta e l'avesse lasciata lì ad aspettare." },
   { id:"libri_wwii", name:"Libri sulla Seconda Guerra Mondiale", type:"Physical", location:"Casa Voss", desc:"Books on WWII, topographic maps, physical DVDs. A sudden interest that lasted two months.", phase:3 },
   { id:"mappe_deformate", name:"Mappe deformate", type:"Physical", location:"Casa Voss", desc:"Maps with geometric deformations. Not humidity — too precise. Something was pressed onto these pages.", phase:3 },
   { id:"foto_emma_jonas", name:"Foto di Emma e Jonas", type:"Physical", location:"Casa Voss", desc:"Emma and Jonas together. Happy.", phase:3 },
-  { id:"appunti_emma", name:"Appunti illeggibili di Emma", type:"Document", location:"Casa Voss", desc:"Nearly illegible notes. Written in haste or fear.", phase:3 },
+  { id:"appunti_emma", name:"Appunti illeggibili di Emma", type:"Document", location:"Casa Voss", desc:"Nearly illegible notes. Written in haste or fear.", phase:3, content:"[Fogli con scrittura quasi illeggibile]\n\n...i limiti devono... non possono sapere...\n...se emergesse davvero... cosa succederebbe...\n...backup fisico nel... non fidarsi del cloud...\n...coordinate: 68.4... 15.7...\n\n[Il resto è illeggibile]" },
   { id:"foto_nascosta_emma", name:"Foto nascosta di Emma", type:"Physical", location:"Centro NørdTech", desc:"A photograph of Emma, hidden in Jonas's desk. Not displayed, not discarded.", phase:4 },
-  // Messages example
-  { id:"msg_kari_01", name:"Messaggio da Kari Strand", type:"Message", location:"Comunicazioni", desc:"C'è qualcuno che dovresti incontrare al Centro NørdTech. Si chiama Jonas Berg.", phase:3, from:"Kari Strand" },
+  // Messages
+  { id:"msg_kari_01", name:"Messaggio da Kari Strand", type:"Message", location:"Comunicazioni", desc:"C'è qualcuno che dovresti incontrare al Centro NørdTech. Si chiama Jonas Berg.", phase:3, from:"Kari Strand", content:"Alex,\n\nC'è qualcuno che dovresti incontrare al Centro NørdTech. Si chiama Jonas Berg. Era il collega più stretto di Emma — e il suo compagno fino a sei mesi prima della scomparsa.\n\nNon dirgli che ti mando io. Vai come se stessi facendo un giro.\n\nKari" },
 ];
 
 const PEOPLE = [
@@ -472,18 +487,77 @@ function updateCounts(d) {
 function renderItems(collected) {
   const grid = document.getElementById('itemsGrid');
   const empty = document.getElementById('itemsEmpty');
+  const detail = document.getElementById('itemDetail');
   const items = ITEMS.filter(i => collected.includes(i.id));
+  
+  // Close detail view when re-rendering
+  detail.classList.remove('open');
+  detail.innerHTML = '';
+  grid.style.display = '';
+  document.getElementById('evidenceTitle').style.display = '';
+  
   if (!items.length) { grid.innerHTML=''; empty.style.display='block'; return; }
   empty.style.display='none';
-  grid.innerHTML = items.map(i => `
-    <div class="item-card">
-      <div class="item-type ${i.type.toLowerCase()}">${esc(i.type)}</div>
-      ${i.from ? `<div class="item-from">From: ${esc(i.from)}</div>` : ''}
-      <h4>${esc(i.name)}</h4>
-      <div class="item-location">📍 ${esc(i.location)}</div>
-      <p>${esc(i.desc)}</p>
+  
+  grid.innerHTML = items.map(i => {
+    const hasDetail = i.content || i.image;
+    const clickAttr = hasDetail ? `onclick="openItemDetail('${i.id}')"` : '';
+    return `
+    <div class="item-card" ${clickAttr}>
+      ${i.image ? `<img src="${esc(i.image)}" alt="${esc(i.name)}" class="item-card-img" onerror="this.style.display='none'">` : ''}
+      <div class="item-card-body">
+        <div class="item-type ${i.type.toLowerCase()}">${esc(i.type)}</div>
+        ${i.from ? `<div class="item-from">From: ${esc(i.from)}</div>` : ''}
+        <h4>${esc(i.name)}${hasDetail ? ' →' : ''}</h4>
+        <div class="item-location">📍 ${esc(i.location)}</div>
+        <p>${esc(i.desc)}</p>
+      </div>
     </div>
-  `).join('');
+  `;}).join('');
+}
+
+function openItemDetail(itemId) {
+  const item = ITEMS.find(i => i.id === itemId);
+  if (!item) return;
+  
+  const detail = document.getElementById('itemDetail');
+  const grid = document.getElementById('itemsGrid');
+  const title = document.getElementById('evidenceTitle');
+  const empty = document.getElementById('itemsEmpty');
+  
+  // Hide grid, show detail
+  grid.style.display = 'none';
+  title.style.display = 'none';
+  empty.style.display = 'none';
+  
+  detail.innerHTML = `
+    <div class="item-detail-header">
+      <h3>${esc(item.name)}</h3>
+      <button class="item-detail-back" onclick="closeItemDetail()">← Back</button>
+    </div>
+    ${item.image ? `<img src="${esc(item.image)}" alt="${esc(item.name)}" class="item-detail-img">` : ''}
+    <div class="item-detail-body">
+      <div class="item-detail-meta">
+        <span class="item-type ${item.type.toLowerCase()}">${esc(item.type)}</span>
+        <span class="item-location">📍 ${esc(item.location)}</span>
+        ${item.from ? `<span class="item-from">From: ${esc(item.from)}</span>` : ''}
+      </div>
+      <p style="color:var(--td);font-size:.9rem">${esc(item.desc)}</p>
+      ${item.content ? `<div class="item-detail-content">${esc(item.content)}</div>` : ''}
+    </div>
+  `;
+  detail.classList.add('open');
+}
+
+function closeItemDetail() {
+  const detail = document.getElementById('itemDetail');
+  const grid = document.getElementById('itemsGrid');
+  const title = document.getElementById('evidenceTitle');
+  
+  detail.classList.remove('open');
+  detail.innerHTML = '';
+  grid.style.display = '';
+  title.style.display = '';
 }
 
 /* === NOTES === */
